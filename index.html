@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#4f6bed">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>자취 라이프</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="layout">
+    <nav class="nav" id="nav" aria-label="메뉴"></nav>
+    <div class="page">
+      <header class="topbar"><h1 id="page-title">자취 라이프</h1></header>
+      <main id="main"></main>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- 공통 코드 (순서 중요: utils → storage → app) -->
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- 모듈: 새 기능은 여기에 한 줄씩 추가 (나열한 순서 = 메뉴 순서) -->
+  <script src="modules/home.js"></script>
+  <script src="modules/moving.js"></script>
+  <script src="modules/budget.js"></script>
+  <script src="modules/meal.js"></script>
+  <script src="modules/workout.js"></script>
+  <script src="modules/settings.js"></script>
+
+  <script>App.start();</script>
+</body>
+</html>
