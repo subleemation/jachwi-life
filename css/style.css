@@ -1,27 +1,29 @@
 /* ===== 색·크기 변수 (여기만 바꾸면 전체 분위기가 바뀜) ===== */
-/* 무채색 테마: 강조색 대신 검정/흰색 대비로 구분하고,
-   색은 '기한 지남(빨강)'과 '임박(주황)' 같은 경고에만 남긴다. */
+/* 레트로 클래식 테마: 살짝 따뜻한 종이색 배경 + 여러 단계의 회색,
+   제목·숫자는 명조(세리프) 글꼴. 색은 '기한 지남'과 '임박' 경고에만 차분하게 남긴다. */
 :root {
-  --bg: #f5f5f5;
-  --surface: #ffffff;
-  --surface-2: #f0f0f0;
-  --text: #171717;
-  --text-2: #525252;
-  --text-3: #a3a3a3;
-  --line: #e5e5e5;
-  --primary: #171717;        /* 강조 = 거의 검정 */
-  --on-primary: #ffffff;     /* 강조 위의 글자색 */
-  --primary-soft: #ebebeb;
-  --chart-2: #b5b5b5;        /* 그래프 두 번째 색 (고정비 등) */
-  --hero-bg: #171717;
-  --hero-text: #fafafa;
-  --danger: #d4342c;
-  --danger-soft: #fbeceb;
-  --warn: #b26a12;
-  --ok: #171717;
-  --radius: 8px;             /* 카드 모서리 */
-  --radius-sm: 6px;          /* 버튼·입력칸 모서리 */
-  --shadow: none;
+  --bg: #f4f2ed;             /* 바탕: 오래된 종이 같은 미색 */
+  --surface: #fdfcf9;        /* 카드: 거의 흰색 */
+  --surface-2: #eeebe4;      /* 카드 안 회색 칸 */
+  --text: #2f2d29;           /* 글자: 순검정 대신 짙은 먹색 */
+  --text-2: #6b675f;
+  --text-3: #a8a399;
+  --line: #e0dcd2;
+  --line-strong: #cdc8bc;    /* 진한 테두리 (카드 아래 선 등) */
+  --primary: #4a4740;        /* 강조 = 짙은 회갈색 */
+  --on-primary: #fbfaf6;
+  --primary-soft: #e6e2d9;
+  --chart-2: #c4bfb3;        /* 그래프 두 번째 색 (고정비 등) */
+  --hero-bg: #e9e5dc;
+  --hero-text: #2f2d29;
+  --danger: #a64b3c;         /* 벽돌색 */
+  --danger-soft: #f3e3df;
+  --warn: #9a7130;           /* 황토색 */
+  --ok: #4a4740;
+  --radius: 6px;             /* 카드 모서리 */
+  --radius-sm: 4px;          /* 버튼·입력칸 모서리 */
+  --shadow: 0 1px 0 var(--line-strong);
+  --font-serif: "Noto Serif KR", "Nanum Myeongjo", "AppleMyungjo", "Batang", "바탕", Georgia, serif;
   --nav-h: 64px;
   --safe-b: env(safe-area-inset-bottom, 0px);
   color-scheme: light;
@@ -29,23 +31,24 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0e0e0e;
-    --surface: #181818;
-    --surface-2: #242424;
-    --text: #f2f2f2;
-    --text-2: #a3a3a3;
-    --text-3: #6b6b6b;
-    --line: #2c2c2c;
-    --primary: #f2f2f2;
-    --on-primary: #111111;
-    --primary-soft: #2c2c2c;
-    --chart-2: #5e5e5e;
-    --hero-bg: #242424;
-    --hero-text: #f2f2f2;
-    --danger: #f2706a;
-    --danger-soft: #2e1a19;
-    --warn: #d9a05b;
-    --ok: #f2f2f2;
+    --bg: #1c1b18;
+    --surface: #24231f;
+    --surface-2: #2e2c27;
+    --text: #ebe7de;
+    --text-2: #aaa59a;
+    --text-3: #726e65;
+    --line: #36342e;
+    --line-strong: #44413a;
+    --primary: #d9d4c8;
+    --on-primary: #22211d;
+    --primary-soft: #36342e;
+    --chart-2: #5f5b52;
+    --hero-bg: #2e2c27;
+    --hero-text: #ebe7de;
+    --danger: #d58a7c;
+    --danger-soft: #3a2723;
+    --warn: #cfa863;
+    --ok: #d9d4c8;
     color-scheme: dark;
   }
 }
@@ -70,6 +73,15 @@ body {
 button, input, select, textarea { font: inherit; color: inherit; }
 a { color: var(--text); text-decoration: none; }
 h1, h2, h3 { margin: 0; line-height: 1.3; }
+
+/* 레트로 느낌: 제목과 큰 숫자만 명조체, 본문은 고딕 그대로 */
+h1, h2, h3, .nav-brand, .hero .dday, .hero .greet, .big-num, .tile-value,
+.urgent-dday, .month-nav b, .stat b {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -.2px;
+}
+.big-num, .tile-value, .stat b, .urgent-dday, .hero .dday { font-variant-numeric: tabular-nums lining-nums; }
 
 /* ===== 레이아웃: 모바일은 아래 탭바, 넓은 화면은 왼쪽 사이드바 ===== */
 .page { min-height: 100vh; padding-bottom: calc(var(--nav-h) + var(--safe-b) + 24px); }
@@ -108,7 +120,7 @@ main { padding: 4px 16px 0; max-width: 760px; margin: 0 auto; }
     width: 220px; height: 100vh; padding: 20px 12px;
     border-top: 0; border-right: 1px solid var(--line);
   }
-  .nav-brand { display: block; font-size: 18px; font-weight: 800; padding: 4px 12px 16px; }
+  .nav-brand { display: block; font-size: 18px; font-weight: 700; padding: 4px 12px 16px; }
   .nav-item {
     flex: none; flex-direction: row; justify-content: flex-start; gap: 10px;
     padding: 10px 12px; border-radius: var(--radius-sm); font-size: 15px;
@@ -240,11 +252,12 @@ main { padding: 4px 16px 0; max-width: 760px; margin: 0 auto; }
 /* ===== 홈 ===== */
 .hero {
   background: var(--hero-bg);
-  color: var(--hero-text); border: 0; padding: 20px;
+  color: var(--hero-text); border: 1px solid var(--line-strong); padding: 20px;
 }
-.hero .label { font-size: 14px; opacity: .85; }
-.hero .dday { font-size: 44px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin: 4px 0; }
-.hero .sub { font-size: 14px; opacity: .9; }
+.hero .label, .hero .sub { color: var(--text-2); opacity: 1; }
+.hero .label { font-size: 14px; }
+.hero .dday { font-size: 44px; font-weight: 700; letter-spacing: -1px; line-height: 1.1; margin: 4px 0; }
+.hero .sub { font-size: 14px; }
 .hero-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .hero .greet { font-size: 17px; font-weight: 700; margin-top: 4px; }
 .hero-dday { flex: none; text-align: right; }
@@ -259,7 +272,7 @@ main { padding: 4px 16px 0; max-width: 760px; margin: 0 auto; }
 }
 .tile:active { transform: scale(.98); }
 .tile-label { font-size: 13px; color: var(--text-2); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tile-value { font-size: 20px; font-weight: 800; letter-spacing: -.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tile-value { font-size: 20px; font-weight: 700; letter-spacing: -.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tile .progress { height: 5px; }
 .tile-sub { font-size: 12px; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -273,7 +286,7 @@ a.check-body { color: var(--text); }
 .row-icon { width: 24px; height: 24px; display: grid; place-items: center; font-size: 18px; }
 
 .urgent { display: flex; align-items: center; gap: 14px; padding: 12px; border-radius: var(--radius-sm); background: var(--surface-2); color: var(--text); }
-.urgent-dday { flex: none; min-width: 64px; font-size: 24px; font-weight: 800; text-align: center; }
+.urgent-dday { flex: none; min-width: 64px; font-size: 24px; font-weight: 700; text-align: center; }
 .urgent-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .mini-link { display: flex; justify-content: space-between; gap: 10px; width: 100%; color: var(--text); }
 
@@ -338,7 +351,7 @@ a.check-body { color: var(--text); }
 .month-nav .today-btn { height: 30px; padding: 0 10px; font-size: 13px; min-height: 0; }
 
 /* ===== 가계부 ===== */
-.big-num { font-size: 28px; font-weight: 800; letter-spacing: -.5px; }
+.big-num { font-size: 28px; font-weight: 700; letter-spacing: -.5px; }
 .big-num small { font-size: 15px; font-weight: 600; color: var(--text-2); letter-spacing: 0; }
 .progress.over > span { background: var(--danger); }
 .progress.high > span { background: var(--warn); }
