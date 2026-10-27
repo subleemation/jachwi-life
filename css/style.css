@@ -122,8 +122,10 @@ main { padding: 4px 16px 0; max-width: 760px; margin: 0 auto; }
     flex: none; flex-direction: row; justify-content: flex-start; gap: 10px;
     padding: 10px 12px; border-radius: var(--radius-sm); font-size: 15px;
   }
-  .nav-item:hover { background: var(--hover); }
-  .nav-item.active { background: var(--primary-soft); }
+  /* 사이드바도 흰 바탕: 선택한 메뉴는 왼쪽 세로 막대 + 진한 글자로 표시 */
+  .nav-item { border-radius: 0; }
+  .nav-item:hover { background: none; color: var(--text-2); }
+  .nav-item.active { background: none; color: var(--text); box-shadow: inset 2px 0 0 var(--primary); }
   .nav-icon { font-size: 18px; }
   .page { flex: 1; min-width: 0; padding-bottom: 40px; }
   .topbar { padding: 24px 32px 12px; }
