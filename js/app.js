@@ -106,7 +106,52 @@ const App = (() => {
     location.hash = `#/${id}`;
   }
 
+  // ---------- 이모지 회색 처리 ----------
+  // 이모지 색은 폰 글꼴이 정해서 CSS 색으로는 못 바꾼다.
+  // 그래서 화면에 들어오는 글자 속 이모지를 <span class="emo">로 감싸고, CSS에서 회색 필터를 건다.
+  const EMOJI_SPLIT = /(\p{Extended_Pictographic}(?:️|‍\p{Extended_Pictographic}️?)*)/gu;
+  const HAS_EMOJI = /\p{Extended_Pictographic}/u;
+  const NO_WRAP = new Set(['SCRIPT', 'STYLE', 'TEXTAREA', 'OPTION', 'TITLE']);   // span을 넣을 수 없는 곳
+
+  function grayEmoji(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const p = node.parentElement;
+        if (!p || NO_WRAP.has(p.tagName) || p.closest('.emo, svg')) return NodeFilter.FILTER_REJECT;
+        return HAS_EMOJI.test(node.data) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      },
+    });
+    const found = [];
+    while (walker.nextNode()) found.push(walker.currentNode);
+    found.forEach((node) => {
+      const frag = document.createDocumentFragment();
+      node.data.split(EMOJI_SPLIT).forEach((part, i) => {
+        if (!part) return;
+        if (i % 2) {
+          const span = document.createElement('span');
+          span.className = 'emo';
+          span.textContent = part;
+          frag.append(span);
+        } else {
+          frag.append(part);
+        }
+      });
+      node.replaceWith(frag);
+    });
+  }
+
+  function watchEmoji() {
+    grayEmoji(document.body);
+    new MutationObserver((mutations) => {
+      mutations.forEach((m) => m.addedNodes.forEach((n) => {
+        if (n.nodeType === Node.ELEMENT_NODE) grayEmoji(n);
+        else if (n.nodeType === Node.TEXT_NODE && n.parentElement) grayEmoji(n.parentElement);
+      }));
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
   function start() {
+    watchEmoji();
     renderNav();
     window.addEventListener('hashchange', () => {
       render();

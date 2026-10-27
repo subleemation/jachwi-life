@@ -52,6 +52,8 @@
 
 /* ===== 기본 ===== */
 * { box-sizing: border-box; }
+.emo { filter: grayscale(1); }          /* 이모지 회색 (app.js의 grayEmoji가 감쌈) */
+select { filter: grayscale(1); }        /* 선택 상자 안의 이모지는 감쌀 수 없어서 상자째 회색 */
 [hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body {

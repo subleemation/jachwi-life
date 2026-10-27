@@ -2,7 +2,7 @@
 // 인터넷이 되면 항상 최신 파일을 먼저 받아오므로(network-first) 수정 사항이 바로 반영된다.
 // 새 파일(모듈)을 추가하면 아래 ASSETS 목록에도 한 줄 추가하기.
 
-const CACHE = 'shlife-v6';
+const CACHE = 'shlife-v7';
 const ASSETS = [
   './',
   'index.html',
