@@ -201,7 +201,7 @@
           <div class="bar-track ${g.c.fixed ? 'fixed' : ''}"><span style="width:${(g.amount / max) * 100}%"></span></div>
         </li>`).join('')}
       </ul>
-      <div class="legend"><span><i style="background:var(--primary)"></i>변동비</span><span><i style="background:#8b6cf0"></i>고정비</span></div>`
+      <div class="legend"><span><i style="background:var(--primary)"></i>변동비</span><span><i style="background:var(--chart-2)"></i>고정비</span></div>`
       : '<p class="muted small" style="margin:0">이 달의 지출 기록이 없어요.</p>';
 
     // 최근 6개월 추이
